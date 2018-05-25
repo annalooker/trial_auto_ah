@@ -37,7 +37,7 @@ view: events {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: event_type {
+  dimension: event_category {
     type: string
     sql: ${TABLE}.event_type ;;
   }
@@ -56,6 +56,19 @@ view: events {
     type: number
     sql: ${TABLE}.longitude ;;
   }
+
+  dimension: device_location {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
+  }
+
+  dimension: device_location_rounded {
+    type: location
+    sql_latitude: round(${latitude},2) ;;
+    sql_longitude: round(${longitude},2) ;;
+  }
+
 
   dimension: os {
     type: string
@@ -82,12 +95,12 @@ view: events {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: uri {
+  dimension: event_type {
     type: string
     sql: ${TABLE}.uri ;;
   }
 
-  dimension: user_id {
+  dimension: device_id {
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;
